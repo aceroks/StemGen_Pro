@@ -9,7 +9,7 @@ class StemEngine:
         self.separator = Separator()
         print("Demucs ready!")
 
-    def separate(self, input_file):
+    def separate(self, input_file, progress_callback=None):
 
         print(f"Separating: {input_file}")
 
