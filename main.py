@@ -161,7 +161,7 @@ class StemGenProApp(App):
             size_hint=(1, 0.11)
         )
 
-        choose_song_button = Button(
+        self.choose_song_button = Button(
             text="Choose Song",
             size_hint=(None, None),
             width=220,
@@ -172,7 +172,7 @@ class StemGenProApp(App):
             color=(1, 1, 1, 1)
         )
 
-        choose_song_button.bind(on_press=self.show_song_picker)
+        self.choose_song_button.bind(on_press=self.show_song_picker)
 
         self.song_label = Label(
             text="",
@@ -257,7 +257,7 @@ class StemGenProApp(App):
 
         layout.add_widget(title)
         layout.add_widget(output_box)
-        layout.add_widget(choose_song_button)
+        layout.add_widget(self.choose_song_button)
         layout.add_widget(self.song_label)
         layout.add_widget(self.separate_button)
         layout.add_widget(status)
@@ -276,6 +276,8 @@ class StemGenProApp(App):
             self.song_label.text = f"🎵  {filename}"
             print("Selected:", selection[0])
             self.status.text = "[b]Status[/b]\n\nReady for Stem Separation"
+            self.choose_song_button.background_color = (0.55, 0.55, 0.55, 1)
+
             if hasattr(self, "song_popup"):
                 self.song_popup.dismiss()
 
@@ -334,7 +336,6 @@ class StemGenProApp(App):
             0
         )
 
-
     def separation_complete(self, output_folder):
         self.output_folder = output_folder
 
@@ -347,6 +348,7 @@ class StemGenProApp(App):
         )
 
         self.is_separating = False
+        self.choose_song_button.background_color = (0.0, 0.45, 1.0, 1.0)
         self.separate_button.background_color = (0.0, 0.45, 1.0, 1.0)
                                                  
         self.open_output_button.disabled = False
