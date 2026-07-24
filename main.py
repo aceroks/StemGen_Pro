@@ -284,6 +284,9 @@ class StemGenProApp(App):
     # -------------------------------------------------
             
     def separate_stems(self, instance):
+        if getattr(self, "is_separating", False):
+            return
+    
         if not hasattr(self, "selected_file"):
             self.status.text = (
                 "[b]Status[/b]\n\n"
@@ -298,8 +301,9 @@ class StemGenProApp(App):
 
         self.activity.start()
 
-        self.separate_button.disabled = True
-        self.separate_button.background_color = (0.35, 0.35, 0.35, 1)
+        self.is_separating = True
+        self.separate_button.background_color = (0.55, 0.55, 0.55, 1)
+
         self.open_output_button.disabled = True
 
         separation_thread = Thread(
@@ -342,8 +346,9 @@ class StemGenProApp(App):
             "Saved to Output Stems Folder"
         )
 
-        self.separate_button.disabled = False
-        self.separate_button.background_color = (0.15, 0.65, 1.0, 1)
+        self.is_separating = False
+        self.separate_button.background_color = (0.0, 0.45, 1.0, 1.0)
+                                                 
         self.open_output_button.disabled = False
 
     def separation_failed(self, message):
